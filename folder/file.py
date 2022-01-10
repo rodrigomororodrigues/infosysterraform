@@ -8,7 +8,7 @@ session  = Session(aws_access_key_id=ACESS_KEY_ID,aws_secret_access_key=SECRET_K
 
 s3 = session.resource('s3')
 
-bucket = 'flugelbucket'
+bucket = 'infosysbucket'
 
 my_bucket = s3.Bucket(bucket)
 

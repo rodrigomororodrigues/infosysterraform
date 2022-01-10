@@ -19,9 +19,9 @@
   aws configure set aws_access_key_id 'AKIASZKKVZKPBWIUZUWZ'
   aws configure set aws_secret_access_key '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'
 
-  aws s3 cp  s3://flugelbucket/file.py  /usr/share/nginx/html/
-  aws s3 cp --recursive s3://flugelbucket/assets/  /usr/share/nginx/html/assets
-  aws s3 cp --recursive s3://flugelbucket/images/  /usr/share/nginx/html/images
+  aws s3 cp  s3://infosysbucket/file.py  /usr/share/nginx/html/
+  aws s3 cp --recursive s3://infosysbucket/assets/  /usr/share/nginx/html/assets
+  aws s3 cp --recursive s3://infosysbucket/images/  /usr/share/nginx/html/images
   sudo chmod +x /usr/share/nginx/html/file.py
   sudo python3 /usr/share/nginx/html/file.py
 
