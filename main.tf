@@ -15,8 +15,8 @@ provider "aws" {
 
 
 resource "aws_s3_bucket" "infosys" {
-  bucket = "infosysbucket"
-  acl    = "private"
+  bucket = "infosysbuckettt"
+  #acl    = "private"
   tags = {
     Name        = "infosys"
     Owner = "InfraTeam"
@@ -27,7 +27,7 @@ variable "upload_directory" {
   default = "folder/"
 }
 
-resource "aws_s3_bucket_object" "website_files" {
+resource "aws_s3_object" "website_files" {
   for_each      = fileset(var.upload_directory, "**/*.*")
   bucket        = aws_s3_bucket.infosys.id
   key           = replace(each.value, var.upload_directory, "")
