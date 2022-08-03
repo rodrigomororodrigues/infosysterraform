@@ -16,8 +16,8 @@
   yum install python3 -y
   yum install python3-pip -y
   pip3 install boto3
-  aws configure set aws_access_key_id 'AKIASZKKVZKPBWIUZUWZ'
-  aws configure set aws_secret_access_key 'MI127zC8Xp1vJurb7pideUTC38ztEc8h7tDCsZgy'
+  aws configure set aws_access_key_id 'youracesskey'
+  aws configure set aws_secret_access_key 'yoursecretkey'
 
   aws s3 cp  s3://infosysbucket/file.py  /usr/share/nginx/html/
   aws s3 cp --recursive s3://infosysbucket/assets/  /usr/share/nginx/html/assets
