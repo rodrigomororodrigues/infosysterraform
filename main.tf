@@ -14,11 +14,11 @@ provider "aws" {
 }
 
 
-resource "aws_s3_bucket" "infosys" {
-  bucket = "infosysbuckettt"
+resource "aws_s3_bucket" "equinix" {
+  bucket = "equinixbucket"
   #acl    = "private"
   tags = {
-    Name        = "infosys"
+    Name        = "equinix"
     Owner = "InfraTeam"
   }  
 
@@ -29,7 +29,7 @@ variable "upload_directory" {
 
 resource "aws_s3_object" "website_files" {
   for_each      = fileset(var.upload_directory, "**/*.*")
-  bucket        = aws_s3_bucket.infosys.id
+  bucket        = aws_s3_bucket.equinix.id
   key           = replace(each.value, var.upload_directory, "")
   source        = "${var.upload_directory}${each.value}"
   etag          = filemd5("${var.upload_directory}${each.value}")
@@ -41,8 +41,8 @@ resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
 
   tags = {
-    Project = "infosys"
-    Name = "My infosys VPC"
+    Project = "equinix"
+    Name = "My equinix VPC"
  }
 }
 
@@ -53,7 +53,7 @@ resource "aws_subnet" "pub_sub1" {
   availability_zone       = "us-east-1a"
   map_public_ip_on_launch = true
   tags = {
-    Project = "infosys"
+    Project = "equinix"
      Name = "public_subnet1"
  
  }
@@ -66,7 +66,7 @@ resource "aws_subnet" "pub_sub2" {
   availability_zone       = "us-east-1b"
   map_public_ip_on_launch = true
   tags = {
-    Project = "infosys"
+    Project = "equinix"
      Name = "public_subnet2"
  
  }
@@ -81,7 +81,7 @@ resource "aws_subnet" "prv_sub1" {
   map_public_ip_on_launch = false
 
   tags = {
-    Project = "infosys"
+    Project = "equinix"
     Name = "private_subnet1" 
     Owner = "InfraTeam"
  }
@@ -95,7 +95,7 @@ resource "aws_subnet" "prv_sub2" {
   map_public_ip_on_launch = false
 
   tags = {
-    Project = "infosys"
+    Project = "equinix"
     Name = "private_subnet2"
   }
 }
@@ -106,7 +106,7 @@ resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Project = "infosys"
+    Project = "equinix"
     Name = "internet gateway" 
  }
 }
@@ -122,7 +122,7 @@ resource "aws_route_table" "pub_sub1_rt" {
   }
 
   tags = {
-    Project = "infosys"
+    Project = "equinix"
     Name = "public subnet route table" 
  }
 }
@@ -138,7 +138,7 @@ resource "aws_route_table" "pub_sub2_rt" {
   }
 
   tags = {
-    Project = "infosys"
+    Project = "equinix"
     Name = "public subnet route table 2" 
  }
 }
@@ -183,7 +183,7 @@ resource "aws_route_table" "prv_sub1_rt" {
     nat_gateway_id = aws_nat_gateway.natgateway_1[count.index].id
   }
   tags = {
-    Project = "infosys"
+    Project = "equinix"
     Name = "private subnet1 route table" 
  }
 }
@@ -207,7 +207,7 @@ resource "aws_route_table" "prv_sub2_rt" {
     nat_gateway_id = aws_nat_gateway.natgateway_1[count.index].id
   }
   tags = {
-    Project = "infosys"
+    Project = "equinix"
     Name = "private subnet2 route table"
   }
 }
@@ -256,7 +256,7 @@ egress {
  
  tags = {
     Name = var.sg_tagname
-    Project = "infosys" 
+    Project = "equinix" 
   }	
 }
 
@@ -293,7 +293,7 @@ egress {
 
  tags = {
     Name = var.sg_ws_tagname 
-    Project = "infosys"
+    Project = "equinix"
   }
 }
 
@@ -333,8 +333,8 @@ resource "aws_launch_configuration" "webserver-launch-config" {
 
 
 # Create Auto Scaling Group
-resource "aws_autoscaling_group" "infosys-ASG-tf" {
-  name		     = "infosys-ASG-tf"
+resource "aws_autoscaling_group" "equinix-ASG-tf" {
+  name		     = "equinix-ASG-tf"
   desired_capacity   = 2
   max_size           = 2
   min_size           = 2
@@ -347,7 +347,7 @@ resource "aws_autoscaling_group" "infosys-ASG-tf" {
   
  tag {
     key                 = "Name"
-    value               = "infosys-ASG-tf"
+    value               = "equinix-ASG-tf"
     propagate_at_launch = true
     }
 } 
@@ -355,7 +355,7 @@ resource "aws_autoscaling_group" "infosys-ASG-tf" {
 # Create Target group
 
 resource "aws_lb_target_group" "TG-tf" {
-  name     = "infosys-TargetGroup-tf"
+  name     = "equinix-TargetGroup-tf"
  # depends_on = ["aws_vpc.main"]
   port     = 80
   protocol = "HTTP"
@@ -375,15 +375,15 @@ resource "aws_lb_target_group" "TG-tf" {
 # Create ALB
 
 resource "aws_lb" "ALB-tf" {
-   name              = "infosys-ALG-tf"
+   name              = "equinix-ALG-tf"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.elb_sg.id]
   subnets            = [aws_subnet.pub_sub1.id, aws_subnet.pub_sub2.id]
 
   tags = {
-	name  = "infosys-AppLoadBalancer-tf"
-    	Project = "infosys-assignment"
+	name  = "equinix-AppLoadBalancer-tf"
+    	Project = "equinix-assignment"
   }
 }
 

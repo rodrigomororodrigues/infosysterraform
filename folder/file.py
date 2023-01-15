@@ -1,14 +1,19 @@
 from boto3.session import Session
 
 # set aws credentials 
+<<<<<<< Updated upstream
 ACESS_KEY_ID = 'youracesskey'
 SECRET_KEY = 'yoursecretkey'
+=======
+ACESS_KEY_ID = 'AKIASZKKVZKPIF7NDHZV'
+SECRET_KEY = 'iguFOj+x42kV1KthVhwUj5mAUYP+XpAbBOop8+vw'
+>>>>>>> Stashed changes
 
 session  = Session(aws_access_key_id=ACESS_KEY_ID,aws_secret_access_key=SECRET_KEY)
 
 s3 = session.resource('s3')
 
-bucket = 'infosysbucket'
+bucket = 'equinixbucket'
 
 my_bucket = s3.Bucket(bucket)
 

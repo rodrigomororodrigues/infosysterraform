@@ -16,12 +16,17 @@
   yum install python3 -y
   yum install python3-pip -y
   pip3 install boto3
+<<<<<<< Updated upstream
   aws configure set aws_access_key_id 'youracesskey'
   aws configure set aws_secret_access_key 'yoursecretkey'
+=======
+  aws configure set aws_access_key_id 'AKIASZKKVZKPIF7NDHZV'
+  aws configure set aws_secret_access_key 'iguFOj+x42kV1KthVhwUj5mAUYP+XpAbBOop8+vw'
+>>>>>>> Stashed changes
 
-  aws s3 cp  s3://infosysbucket/file.py  /usr/share/nginx/html/
-  aws s3 cp --recursive s3://infosysbucket/assets/  /usr/share/nginx/html/assets
-  aws s3 cp --recursive s3://infosysbucket/images/  /usr/share/nginx/html/images
+  aws s3 cp  s3://equinixbucket/file.py  /usr/share/nginx/html/
+  aws s3 cp --recursive s3://equinixbucket/assets/  /usr/share/nginx/html/assets
+  aws s3 cp --recursive s3://equinixbucket/images/  /usr/share/nginx/html/images
   sudo chmod +x /usr/share/nginx/html/file.py
   sudo python3 /usr/share/nginx/html/file.py
 
